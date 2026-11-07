@@ -1,0 +1,52 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p3aviso",
+  "position": {
+    "x": 20,
+    "y": 548,
+    "z": 6000,
+    "height": 70,
+    "width": 840,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Sem gabarito: estes números mostram comportamento, não acerto. Em laranja, validadores fora do padrão na Fase 2 (taxa de rejeição abaixo da metade ou acima do dobro da mediana do grupo). Em azul, os dois que mais intervêm na Fase 1.",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "color": "#333333",
+                      "fontFamily": "Segoe UI"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "background": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

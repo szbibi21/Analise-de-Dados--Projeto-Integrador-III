@@ -1,0 +1,797 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Projeto Integrador - Análise de Dados</title><meta name="data-notion-page-icon" content="📊"/><link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ctext%20y%3D%22.9em%22%20font-size%3D%2290%22%3E%F0%9F%93%8A%3C%2Ftext%3E%3C%2Fsvg%3E"/><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+	/* Paint a complete callout box on every PDF page fragment. */
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+/* For default-background callouts, render the border outline. */
+.callout.block-color-default_background {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+/*
+ * Toggles and callouts hold arbitrary content, so they can easily be taller
+ * than a page. They must stay breakable: avoiding breaks inside them makes
+ * Chromium push the whole block onto the next page, which leaves the previous
+ * page mostly empty before every long toggle.
+ */
+details,
+aside {
+	margin: 1.25em 0;
+}
+
+/* Keep a toggle's title on the same page as the start of its content. */
+summary {
+	page-break-after: avoid;
+	break-after: avoid;
+}
+
+/*
+ * Toggle headings render as <h1/h2/h3 style="display:inline-block"> inside
+ * <summary>. Without this reset, the heading's margin-top pushes it below the
+ * ::marker (▼), so the triangle and the title appear on separate lines.
+ */
+summary h1,
+summary h2,
+summary h3,
+summary h4 {
+	margin-top: 0;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+
+	table.collection-content {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	table.collection-content th,
+	table.collection-content td {
+		overflow-wrap: anywhere;
+	}
+
+	table.collection-content td > .user,
+	table.collection-content td > time {
+		white-space: pre-wrap;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content-wrapper {
+	overflow-x: auto;
+}
+
+@media only print {
+	.collection-content-wrapper {
+		overflow-x: visible;
+	}
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding-inline: 0.125rem;
+	padding-block: 0.375rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+table {
+	border-collapse: collapse;
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol.numbered-list.numbered-list-digits-2 {
+	padding-inline-start: 2em;
+}
+
+ol.numbered-list.numbered-list-digits-3plus {
+	padding-inline-start: 2.4em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+/*
+ * Render emoji icons using a ::before pseudo-element to keep the glyph
+ * out of the DOM textContent traversal. This avoids double-rendering icons
+ * in callouts and page titles.
+ * NOTE(slim/html-export-pseudo-icons): I can't tagref this because it will
+ * flag as a duplicate tag after codegen.
+ */
+.icon[data-emoji]::before {
+	content: attr(data-emoji);
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	margin-right: 0.4em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.tab {
+	margin: 1.25em 0;
+	padding-inline: 1rem;
+	border: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style><style>@import url('https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex-swap.min.css')</style></head><body><article id="3db7ccc6-e028-8053-bce0-ed64406655ba" class="page sans" data-notion-page-icon="📊"><header><img class="page-cover-image" src="WhatsApp_Image_2026-08-20_at_8.53.04_PM.jpeg" style="object-position:center 31.75%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon" data-emoji="📊"></span></div><h1 class="page-title" dir="auto">Projeto Integrador - Análise de Dados</h1><p class="page-description" dir="auto"></p></header><div class="page-body"><aside class="block-color-blue_background callout" data-notion-callout="" data-notion-callout-icon="📍" data-notion-callout-background="blue_background" style="white-space:pre-wrap;display:flex" id="7cf5faca-dea4-4099-89a2-268ee86974a7" dir="ltr"><div style="font-size:1.5em"><span class="icon" data-emoji="📍"></span></div><div style="width:100%"><p id="732eef8f-07cd-47e5-a731-98d0abb37e5e" class="" dir="auto"><strong>Status atual (atualizado em </strong><strong><time datetime="2026-10-16" data-notion-date-format="relative">@16 de outubro de 2026</time></strong><strong>):</strong> Diagnóstico e storytelling prontos, dashboard e vídeo-pitch em andamento. Rafael respondeu às dúvidas (13/10). Próximo passo: validar o a pergunta do negócio com a Talita em 17/10.</p></div></aside><nav id="7ef621ee-629e-42c7-8fa9-a04f3c47bb52" class="table_of_contents" data-notion-toc="" dir="ltr"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3db7ccc6-e028-807b-972e-f5feebf3db8b">🧾 Resumo do projeto</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3db7ccc6-e028-800e-8aff-d6d6dd128ef6">✅ O que já foi feito</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2d3eff03-9cff-4e36-b8ec-d35e35016ddf">⏭️ Próximos passos</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#690571e2-f674-479f-8b87-58fe9ec07ecc">❓ Pergunta de negócio</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0d1bcab5-f448-4df9-8123-65cf8c72e42f">📅 Cronograma e entregas (Manual do PI3)</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f8182db5-d1e5-445d-aaaa-61bcae2e2c70">🗂️ Etapas e tarefas</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5719908b-6cbf-4c9a-8f3f-69793b806c52">📊 Gráficos</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d1859aaa-ed01-4bc5-a751-f07a60836aae">📈 Resultados principais</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0c16df2e-5b3d-4e5a-811a-001c06866887">📁 Documentos e referências</a></div></nav><h2 id="3db7ccc6-e028-807b-972e-f5feebf3db8b" class="" dir="auto">🧾 Resumo do projeto</h2><table id="446aa0ab-32fb-4120-aca4-68a980fd57e8" class="simple-table" dir="ltr"><tbody><tr id="cc602759-f336-41bb-8bb2-aa7ca49fc3ba" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Disciplina</th><td id="&gt;hbJ" class="">Projeto Integrador III – Análise de Dados I</td></tr><tr id="4cbb5d90-814e-493e-a2e1-8b117f8ee440" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Curso / Instituição</th><td id="&gt;hbJ" class="">Tecnologia em Ciência de Dados para Negócios (CDN) – Fatec Votorantim</td></tr><tr id="3e0556fc-b106-4361-a9be-d19a14050b3b" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Professora</th><td id="&gt;hbJ" class="">Talita Berbel (<a href="mailto:talita.berbel@cps.sp.gov.br">talita.berbel@cps.sp.gov.br</a>)</td></tr><tr id="bea579d5-c460-46da-99c3-50dc6af3c96e" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Aulas</th><td id="&gt;hbJ" class="">Remotas via Teams, sábados a partir das 8h</td></tr><tr id="4623fd7b-b09b-4543-842a-e9b2b2595896" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Equipe</th><td id="&gt;hbJ" class="">Sabrina Carneiro Rodrigues · Karina Bruno de Oliveira</td></tr><tr id="35dbba94-d07a-4a6c-b100-5f9f4a66e079" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Empresa parceira</th><td id="&gt;hbJ" class=""><strong>Visior</strong></td></tr><tr id="3fe948cc-9285-4e08-b284-472530191560" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Tema (aguardando validação da professora)</th><td id="&gt;hbJ" class="">Classes que concentram o tempo de correção dos validadores (IA × validação humana)</td></tr><tr id="cd6ac4f7-579a-40e1-b4ca-d03b1c80c452" dir="ltr"><th id="KeBe" class="simple-table-header-color simple-table-header">Responsáveis na empresa</th><td id="&gt;hbJ" class="">Vinicius Souza — CEO e fundador (<a href="mailto:vinicius.souza@visior.com.br">vinicius.souza@visior.com.br</a>) · Rafael</td></tr></tbody></table><h2 id="3db7ccc6-e028-800e-8aff-d6d6dd128ef6" class="" dir="auto">✅ O que já foi feito</h2><ul id="3db7ccc6-e028-8002-bb36-edfa44361cc1" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Grupo formado (Sabrina e Karina)</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-8087-b741-e024335f2748" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Empresa parceira escolhida: <strong>Visior</strong></span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-80e3-b023-c74815747e4e" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Levantadas duas possíveis perguntas de negócio (ver abaixo)</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-80ee-a786-ea1f476d995b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Modelo de <strong>Ata de Reunião</strong> criado e adaptado para a Visior e para a equipe</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-80c1-a250-d830ff9eb747" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked"><strong>Formulário de Proposição Inicial</strong> preenchido (grupo nº 4; título provisório: “Análise de Dados e Desenvolvimento de Ranking de Validação para a Visior”)</span><div class="indented"></div></li></ul><ul id="6167a803-2ccb-48a8-ace4-8ba00d65b204" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked"><strong>Termo de Confidencialidade</strong> assinado (Sabrina em 13/09 e Visior em 14/09/2026)</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-80df-97da-fd325cd77bd3" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Manual do PI3 e apresentação da disciplina estudados; etapas do projeto organizadas neste Notion</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-8095-8255-dd726efab564" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Estrutura do relatório levantada (página &quot;Estrutura do relatório&quot;)</span><div class="indented"></div></li></ul><ul id="8c281935-6672-428b-bcc6-9266c31914a1" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked"><strong>Dados recebidos da Visior:</strong> Fase 1 (88 mil linhas) e Fase 2 (108 mil linhas) + documentação — ver <a href="https://app.notion.com/p/Dados-recebidos-da-Visior-3f67ccc6e02881868bc8d9384725d934?pvs=21" data-notion-page-id="3f67ccc6-e028-8186-8bc8-d9384725d934" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📦"></span>Dados recebidos da Visior</a></span><div class="indented"></div></li></ul><ul id="98ff2e54-bedc-421e-bbf9-39a52e9990e4" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Primeira visão geral dos dados feita (volume, período, modelos, taxas de rejeição)</span><div class="indented"></div></li></ul><ul id="5ef74c64-79bf-41c5-968c-faa25892eb83" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Direcionamentos do Rafael (Visior) recebidos por áudio — ver <a href="https://app.notion.com/p/Direcionamentos-do-Rafael-CEO-Visior-udio-3f67ccc6e02881f5a6f8e87e7208f295?pvs=21" data-notion-page-id="3f67ccc6-e028-81f5-a6f8-e87e7208f295" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="🎙️"></span>Direcionamentos do Rafael (CEO Visior) — áudio</a></span><div class="indented"></div></li></ul><ul id="17f9a715-ba6b-4823-9261-2237b6f433c5" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Notebook de limpeza e análise exploratória finalizado (PI3_Visior_Limpeza_e_EDA.ipynb), com código simples e já executado</span><div class="indented"></div></li></ul><ul id="e752fb40-12c0-4f33-bd01-0d0a30ca3e1d" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Bases limpas geradas: <code>fase1_limpa.csv</code> e <code>fase2_limpa.csv</code></span><div class="indented"></div></li></ul><ul id="d3ef73c4-ab72-4f7f-b817-9cbfc94dcb59" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Guia de estudos, documento de conclusões e roteiro para a Visior criados — ver <a href="https://app.notion.com/p/Resultados-da-limpeza-e-an-lise-explorat-ria-3f67ccc6e0288123b36cdb37e9cfa9c7?pvs=21" data-notion-page-id="3f67ccc6-e028-8123-b36c-db37e9cfa9c7" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📈"></span>Resultados da limpeza e análise exploratória</a></span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-8095-842d-d7f35eb717b4" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Criar repositório no GitHub (com README) e quadro no Notion, como pede o manual</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-806b-9863-fd342cd51b8f" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Missão, visão e valores da Visior registrados em <a href="https://app.notion.com/p/Documentos-do-projeto-3f77ccc6e0288151b3f6e98108240872?pvs=21" data-notion-page-id="3f77ccc6-e028-8151-b3f6-e98108240872" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📁"></span>Documentos do projeto</a></span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-80b4-84f1-c3eb5b675429" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Relatório parcial escrito no template do PI3 (Relatorio_PI3_Visior_parcial.docx)</span><div class="indented"></div></li></ul><ul id="f856e48f-e863-47f4-961a-b1d123748e48" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Diagnóstico: cenários de economia de tempo (até 18% do tempo de ação em placas)</span><div class="indented"></div></li></ul><ul id="27fdc181-7bcb-4902-98e9-cca4f631f641" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Storytelling: narrativa, roteiro da apresentação, roteiro do vídeo-pitch e perguntas da banca</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-800d-ab00-f64ed71b8c46" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Dados agregados e guia de montagem do dashboard no Power BI</span><div class="indented"></div></li></ul><ul id="3db7ccc6-e028-8067-a61f-c076b33a5e11" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Vídeo-pitch base (3 min, sem narração) e legendas com o texto</span><div class="indented"></div></li></ul><ul id="c8de9e6b-0726-4035-8396-26fb2b4a2ef0" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Respostas do Rafael às dúvidas (13/10) registradas — ver <a href="https://app.notion.com/p/Respostas-do-Rafael-s-d-vidas-13-10-2026-3fb7ccc6e02881c9bee2d7fca21017e4?pvs=21" data-notion-page-id="3fb7ccc6-e028-81c9-bee2-d7fca21017e4" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="🎙️"></span>Respostas do Rafael às dúvidas — 13/10/2026</a></span><div class="indented"></div></li></ul><ul id="a8d85cc8-e2a1-4c1f-8a5a-48c4d05c94bf" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-on" disabled="" checked=""/> <span class="to-do-children-checked">Preparação da conversa sobre escopo — ver <a href="https://app.notion.com/p/Conversa-com-a-Talita-escopo-17-10-2026-3fb7ccc6e02881b3a5fcef1ecec36cea?pvs=21" data-notion-page-id="3fb7ccc6-e028-81b3-a5fc-ef1ecec36cea" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="🎓"></span>Conversa com a Talita — escopo (17/10/2026)</a></span><div class="indented"></div></li></ul><h2 id="2d3eff03-9cff-4e36-b8ec-d35e35016ddf" class="" dir="auto">⏭️ Próximos passos</h2><ul id="99567199-69e5-4b4c-ab57-4fbe90266e0e" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Conversar com a Talita (17/10): validar escopo e pergunta de negócio e pedir o parecer do formulário</span><div class="indented"></div></li></ul><ul id="c23da9b9-541b-49f9-95d3-156171b3c86b" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Perguntar à Visior se a classe I-E existe no modelo de placas e qual caminho aprofundar</span><div class="indented"></div></li></ul><ul id="cfe58229-985b-46b8-957f-f63151d7a03d" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Montar as 3 páginas do dashboard no Power BI (Etapa 9)</span><div class="indented"></div></li></ul><ul id="94cc88a8-dbfe-4fe2-b417-39d116189ff4" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Gravar a narração do vídeo-pitch e trocar a cena do dashboard pela tela real (Etapa 11)</span><div class="indented"></div></li></ul><ul id="e984c81b-dd19-4800-9b20-26c86ad31bdf" class="to-do-list" dir="auto"><li><input type="checkbox" class="checkbox checkbox-off" disabled=""/> <span class="to-do-children-unchecked">Ajustar o relatório com o retorno da Talita e preparar a entrega preliminar (Etapa 10)</span><div class="indented"></div></li></ul><h2 id="690571e2-f674-479f-8b87-58fe9ec07ecc" class="" dir="auto">❓ Pergunta de negócio</h2><blockquote id="1392254f-fa39-4ef7-a001-9a413b0a92b8" class="" dir="auto"><strong>Proposta após a análise:</strong> Quais classes concentram o tempo de correção dos validadores e quanto tempo a Visior economizaria melhorando-as?</blockquote><p id="7031f7dd-9aaa-4d9f-9b55-26302ee2cb19" class="" dir="auto">Candidatas iniciais:</p><blockquote id="3db7ccc6-e028-8090-beba-f566a0d9f42a" class="" dir="auto"><strong>Opção A:</strong> Quais fatores estão relacionados aos erros de classificação identificados durante o processo de validação?</blockquote><blockquote id="0c1ed7b3-af6a-42e1-a599-c24941b1cb3b" class="" dir="auto"><strong>Opção B:</strong> Quais classes apresentam maior divergência entre a classificação realizada pela IA e a validação humana?</blockquote><h2 id="0d1bcab5-f448-4df9-8123-65cf8c72e42f" class="" dir="auto">📅 Cronograma e entregas (Manual do PI3)</h2><table id="be4bcee8-89ab-4931-8181-a3622c71b52c" class="simple-table" dir="ltr"><thead class="simple-table-header"><tr id="d0a7a3d6-013a-4b1d-a12a-5cadde628b64" dir="ltr"><th id="HCNc" class="simple-table-header-color simple-table-header">Semanas</th><th id="JNB_" class="simple-table-header-color simple-table-header">Fase</th><th id="c`^A" class="simple-table-header-color simple-table-header">Entrega</th></tr></thead><tbody><tr id="ca223481-0300-431b-8ab2-4b394a403508" dir="ltr"><td id="HCNc" class="">1–3</td><td id="JNB_" class="">Introdução, grupo, escolha da empresa, GitHub/Notion</td><td id="c`^A" class="">Confirmação do grupo e segmento da empresa</td></tr><tr id="94e39b06-c52a-4d6e-b24f-eafa0bf9a052" dir="ltr"><td id="HCNc" class="">4–5</td><td id="JNB_" class="">Pesquisa do problema, viabilidade, kick-off, ferramentas</td><td id="c`^A" class="">Formulário da proposta + Termo de Confidencialidade</td></tr><tr id="619216ab-a60c-4125-9fac-26ed0bfb9054" dir="ltr"><td id="HCNc" class="">6–8</td><td id="JNB_" class="">Coleta de dados, pré-processamento, EDA, entendimento do negócio</td><td id="c`^A" class="">Atas das reuniões</td></tr><tr id="d62e6c54-a945-4fd3-b024-5b1700c4aa5d" dir="ltr"><td id="HCNc" class="">9–10</td><td id="JNB_" class="">Diagnóstico e storytelling</td><td id="c`^A" class="">—</td></tr><tr id="e6b26eb2-a6f5-4c35-b10f-2a302da89140" dir="ltr"><td id="HCNc" class="">11–12</td><td id="JNB_" class="">Dashboard e roteiro do vídeo-pitch</td><td id="c`^A" class="">Relatório preliminar + vídeo-pitch (início da semana 12)</td></tr><tr id="e4c1a9b8-b369-4bf2-8de3-9da9997644c5" dir="ltr"><td id="HCNc" class="">13</td><td id="JNB_" class="">Ajustes finais</td><td id="c`^A" class="">Relatório final (ABNT) + slides</td></tr><tr id="0ba90c04-f496-4c72-a34c-d3c9df463290" dir="ltr"><td id="HCNc" class="">14–15</td><td id="JNB_" class="">Banca técnica e apresentação em banner</td><td id="c`^A" class="">Apresentação final</td></tr></tbody></table><h2 id="f8182db5-d1e5-445d-aaaa-61bcae2e2c70" class="" dir="auto">🗂️ Etapas e tarefas</h2><div id="3db7ccc6-e028-801e-a1c0-f5ce47b1736a" class="collection-content" dir="ltr"><h4 class="collection-title">Planejamento</h4><div class="collection-content-wrapper"><table class="collection-content"><colgroup><col style="width:58.333333333333336%"/><col style="width:41.666666666666664%"/></colgroup><thead><tr><th><span class="icon property-icon"><img src="https://app.notion.com/icons/font_gray.svg" style="width:14px;height:14px;display:block"/></span>Nome</th><th><span class="icon property-icon"><img src="https://app.notion.com/icons/friends_gray.svg" style="width:14px;height:14px;display:block"/></span>Atribuir</th></tr></thead><tbody><tr id="3db7ccc6-e028-8080-b63c-f8d3f524fd07"><td class="cell-title"><a href="https://app.notion.com/p/Atas-de-reuni-o-3db7ccc6e0288080b63cf8d3f524fd07?pvs=21" data-notion-page-id="3db7ccc6-e028-8080-b63c-f8d3f524fd07" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">📋 Atas de reunião</a></td><td class="cell-\U;N"></td></tr><tr id="3db7ccc6-e028-8044-a584-f05f7e356cf0"><td class="cell-title"><a href="https://app.notion.com/p/3db7ccc6e0288044a584f05f7e356cf0?pvs=21" data-notion-page-id="3db7ccc6-e028-8044-a584-f05f7e356cf0" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">Sem título</a></td><td class="cell-\U;N"></td></tr><tr id="3db7ccc6-e028-80aa-9a27-e58a6140b9dd"><td class="cell-title"><a href="https://app.notion.com/p/Termo-de-Confidencialidade-NDA-3db7ccc6e02880aa9a27e58a6140b9dd?pvs=21" data-notion-page-id="3db7ccc6-e028-80aa-9a27-e58a6140b9dd" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">📝 Termo de Confidencialidade (NDA)</a></td><td class="cell-\U;N"></td></tr><tr id="3db7ccc6-e028-80ec-a9ca-f7bd1a20d23a"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-1-Entender-o-projeto-3db7ccc6e02880eca9caf7bd1a20d23a?pvs=21" data-notion-page-id="3db7ccc6-e028-80ec-a9ca-f7bd1a20d23a" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🔵 ETAPA 1 — Entender o projeto</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8091-b862-de815eb886a4"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-2-Conhecer-a-empresa-e-definir-o-problema-3f07ccc6e0288091b862de815eb886a4?pvs=21" data-notion-page-id="3f07ccc6-e028-8091-b862-de815eb886a4" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟠 ETAPA 2 — Conhecer a empresa e definir o problema</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-80c1-85f6-dcc0afb4ac9f"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-3-Valida-o-do-problema-e-escopo-3f07ccc6e02880c185f6dcc0afb4ac9f?pvs=21" data-notion-page-id="3f07ccc6-e028-80c1-85f6-dcc0afb4ac9f" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟡 ETAPA 3 — Validação do problema e escopo</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-80bd-9ed5-c008dc95772a"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-4-Coleta-e-organiza-o-dos-dados-3f07ccc6e02880bd9ed5c008dc95772a?pvs=21" data-notion-page-id="3f07ccc6-e028-80bd-9ed5-c008dc95772a" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟢 ETAPA 4 — Coleta e organização dos dados</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8045-b5a7-f8ab4d092223"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-5-Limpeza-e-pr-processamento-3f07ccc6e0288045b5a7f8ab4d092223?pvs=21" data-notion-page-id="3f07ccc6-e028-8045-b5a7-f8ab4d092223" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🔵 ETAPA 5 — Limpeza e pré-processamento</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-80d4-a569-e72d49a30410"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-6-Compreender-os-dados-neg-cio-3f07ccc6e02880d4a569e72d49a30410?pvs=21" data-notion-page-id="3f07ccc6-e028-80d4-a569-e72d49a30410" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟣 ETAPA 6 — Compreender os dados + negócio</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8050-9d3e-e867b8e4b6ba"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-7-Diagn-stico-3f07ccc6e02880509d3ee867b8e4b6ba?pvs=21" data-notion-page-id="3f07ccc6-e028-8050-9d3e-e867b8e4b6ba" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🔴 ETAPA 7 — Diagnóstico</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8043-a381-c80bf8ed8d7e"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-8-Storytelling-3f07ccc6e0288043a381c80bf8ed8d7e?pvs=21" data-notion-page-id="3f07ccc6-e028-8043-a381-c80bf8ed8d7e" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟤 ETAPA 8 — Storytelling</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8004-bb69-c23e0d29f3a5"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-9-Dashboard-3f07ccc6e0288004bb69c23e0d29f3a5?pvs=21" data-notion-page-id="3f07ccc6-e028-8004-bb69-c23e0d29f3a5" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🟢 ETAPA 9 — Dashboard</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-800f-9bf4-fb02777d9980"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-10-Relat-rio-3f07ccc6e028800f9bf4fb02777d9980?pvs=21" data-notion-page-id="3f07ccc6-e028-800f-9bf4-fb02777d9980" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">📝 ETAPA 10 — Relatório</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-8031-b72b-d2cd72839c59"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-11-V-deo-pitch-3f07ccc6e0288031b72bd2cd72839c59?pvs=21" data-notion-page-id="3f07ccc6-e028-8031-b72b-d2cd72839c59" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🎥 ETAPA 11 — Vídeo-pitch</a></td><td class="cell-\U;N"></td></tr><tr id="3f07ccc6-e028-80c5-9a29-d3fa864a70c1"><td class="cell-title"><a href="https://app.notion.com/p/ETAPA-12-Apresenta-o-final-3f07ccc6e02880c59a29d3fa864a70c1?pvs=21" data-notion-page-id="3f07ccc6-e028-80c5-9a29-d3fa864a70c1" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">🎤 ETAPA 12 — Apresentação final</a></td><td class="cell-\U;N"></td></tr></tbody></table></div><br/><br/></div><h2 id="5719908b-6cbf-4c9a-8f3f-69793b806c52" class="" dir="auto">📊 Gráficos</h2><div id="3db7ccc6-e028-80bd-adaf-de37d090ecf8" class="collection-content" dir="ltr"><h4 class="collection-title">Graficos</h4><div class="collection-content-wrapper"><table class="collection-content"><colgroup><col style="width:58.333333333333336%"/><col style="width:41.666666666666664%"/></colgroup><thead><tr><th><span class="icon property-icon"><img src="https://app.notion.com/icons/font_gray.svg" style="width:14px;height:14px;display:block"/></span>Nome</th><th><span class="icon property-icon"><img src="https://app.notion.com/icons/burst_gray.svg" style="width:14px;height:14px;display:block"/></span>Status</th></tr></thead><tbody><tr id="3db7ccc6-e028-804c-96dd-e3bf3b66aef5"><td class="cell-title"><a href="https://app.notion.com/p/3db7ccc6e028804c96dde3bf3b66aef5?pvs=21" data-notion-page-id="3db7ccc6-e028-804c-96dd-e3bf3b66aef5" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">Sem título</a></td><td class="cell-pk^l"><span class="status-value"><div class="status-dot"></div>Não iniciada</span></td></tr><tr id="3db7ccc6-e028-800d-8672-f455df1bef6d"><td class="cell-title"><a href="https://app.notion.com/p/3db7ccc6e028800d8672f455df1bef6d?pvs=21" data-notion-page-id="3db7ccc6-e028-800d-8672-f455df1bef6d" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">Sem título</a></td><td class="cell-pk^l"><span class="status-value select-value-color-blue"><div class="status-dot status-dot-color-blue"></div>Em andamento</span></td></tr><tr id="3db7ccc6-e028-80e2-ab75-dd483bf275fa"><td class="cell-title"><a href="https://app.notion.com/p/3db7ccc6e02880e2ab75dd483bf275fa?pvs=21" data-notion-page-id="3db7ccc6-e028-80e2-ab75-dd483bf275fa" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">Sem título</a></td><td class="cell-pk^l"><span class="status-value select-value-color-green"><div class="status-dot status-dot-color-green"></div>Concluído</span></td></tr><tr id="3db7ccc6-e028-80f9-a683-fa6907e9df3c"><td class="cell-title"><a href="https://app.notion.com/p/3db7ccc6e02880f9a683fa6907e9df3c?pvs=21" data-notion-page-id="3db7ccc6-e028-80f9-a683-fa6907e9df3c" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad">Sem título</a></td><td class="cell-pk^l"><span class="status-value select-value-color-blue"><div class="status-dot status-dot-color-blue"></div>Em andamento</span></td></tr></tbody></table></div><br/><br/></div><h2 id="d1859aaa-ed01-4bc5-a751-f07a60836aae" class="" dir="auto">📈 Resultados principais</h2><ul id="9fdf7940-62a8-46f4-a983-e440ea352602" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>54%</strong> do tempo de correção está em 3 classes (I-O, O-FE, R-27)</li></ul><ul id="095f97a2-20ac-40f0-9b41-12506be86f9b" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Corrigir uma classe leva <strong>~3x</strong> o tempo de rejeitar um card</li></ul><ul id="75604a1d-dd00-45fd-bd5e-f1f0a4047ff4" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Taxa de intervenção dos validadores vai de <strong>10% a 25%</strong></li></ul><ul id="654b57ec-6dd3-493d-95eb-b584bdc8cab2" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><strong>34%</strong> das correções de classe em placas terminam em <strong>I-E</strong> (placas educativas), classe que a IA quase nunca usa</li></ul><ul id="03f5d5d3-e5b1-421d-a240-303e8eeb668e" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Reduzir o erro pela metade em I-O, O-FE e R-27 economizaria <strong>~18%</strong> do tempo de ação em placas</li></ul><ul id="7cd4bc1d-97c8-45d1-a082-d1242f6f75fd" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Validadores fora do padrão na Fase 2: <strong>A242B0 (0,8%)</strong> e <strong>CC6EB2 (3,7%)</strong> de rejeição, contra mediana de 18,5%</li></ul><ul id="a47e1e52-13a1-47fb-9c69-5087353bd483" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Detalhes: <a href="https://app.notion.com/p/Resultados-da-limpeza-e-an-lise-explorat-ria-3f67ccc6e0288123b36cdb37e9cfa9c7?pvs=21" data-notion-page-id="3f67ccc6-e028-8123-b36c-db37e9cfa9c7" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📈"></span>Resultados da limpeza e análise exploratória</a></li></ul><h2 id="0c16df2e-5b3d-4e5a-811a-001c06866887" class="" dir="auto">📁 Documentos e referências</h2><ul id="5e61d616-b413-4178-acaf-5205d32c9bb7" class="bulleted-list" dir="auto"><li style="list-style-type:disc">📎 <a href="https://app.notion.com/p/Documentos-do-projeto-3f77ccc6e0288151b3f6e98108240872?pvs=21" data-notion-page-id="3f77ccc6-e028-8151-b3f6-e98108240872" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📁"></span>Documentos do projeto</a> — formulário de proposta, termo assinado, manual e apresentação da disciplina</li></ul><ul id="20b6db99-19a2-458b-99b5-be89438c7230" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Página compartilhada com a Visior: <a href="https://app.notion.com/p/PI3-Visior-Resumo-do-projeto-e-primeiros-resultados-3f67ccc6e02881ff8ac0c035fc9eec8d?pvs=21" data-notion-page-id="3f67ccc6-e028-81ff-8ac0-c035fc9eec8d" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📊"></span>PI3 · Visior — Resumo do projeto e primeiros resultados</a></li></ul><ul id="1166f78d-a23d-461f-8864-b1bfdd0b57c5" class="bulleted-list" dir="auto"><li style="list-style-type:disc"><a href="https://claude.ai/code/artifact/c1cd9415-e555-4e49-8d35-33f32c39e9b4">Conclusões da Análise Exploratória</a> </li></ul><figure id="3db7ccc6-e028-8006-a90c-c7d55b9b23f3" class="link-to-page"><a href="https://app.notion.com/p/ATAS-3db7ccc6e0288006a90cc7d55b9b23f3?pvs=21" data-notion-page-id="3db7ccc6-e028-8006-a90c-c7d55b9b23f3" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📄"></span>ATAS</a></figure><figure id="3db7ccc6-e028-8046-8a4a-d60af6aea4bc" class="link-to-page"><a href="https://app.notion.com/p/9-Estrutura-do-relat-rio-3db7ccc6e02880468a4ad60af6aea4bc?pvs=21" data-notion-page-id="3db7ccc6-e028-8046-8a4a-d60af6aea4bc" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📝"></span>📄 9. Estrutura do relatório</a></figure><figure id="3db7ccc6-e028-80c3-a2bc-f1b90ed7ecdb" dir="ltr"><div class="source"><a href="Apresentao_Disciplina.pdf" data-notion-file="Apresentao_Disciplina.pdf" data-notion-file-alias="Apresentação_Disciplina.pdf">Apresentação_Disciplina.pdf</a></div></figure><details id="6b116c12-ca56-4420-81f7-bac43ed5a14d" open="" class="toggle" dir="auto"><summary>Sobre o PI3 (objetivo, resumo do manual)</summary><div class="indented"><ul id="cbe35fa6-912b-4954-9524-263c552c3155" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Projeto <strong>interdisciplinar e de extensão universitária</strong>: trabalhar com um <strong>problema real</strong> de uma empresa, órgão público ou organização.</li></ul><ul id="24db414b-225b-4c50-ae6f-af9689af6066" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Fluxo esperado: <strong>Empresa → problema real → dados → tratamento → análise → diagnóstico → insights → recomendações.</strong></li></ul><ul id="583675d7-e651-4f19-9b6e-c892f548b581" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Objetivos: entender o negócio, transformar o problema em uma pergunta analisável, coletar e tratar dados, fazer análise exploratória, criar indicadores e um <strong>dashboard</strong>, propor recomendações baseadas em evidências e apresentar à banca e à empresa.</li></ul><ul id="91db0b76-846f-45ef-9a32-6bbbd9e0cad2" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Disciplinas-âncora: Estatística II, Técnicas de Programação, Banco de Dados I e Álgebra Linear.</li></ul><ul id="c7d2f357-b8d2-4f2a-9fe4-45d1ddb72884" class="bulleted-list" dir="auto"><li style="list-style-type:disc">Ferramentas exigidas pelo manual: GitHub (com README) e Trello, atualizados até o fim.</li></ul></div></details><figure id="3f67ccc6-e028-8186-8bc8-d9384725d934" class="link-to-page"><a href="https://app.notion.com/p/Dados-recebidos-da-Visior-3f67ccc6e02881868bc8d9384725d934?pvs=21" data-notion-page-id="3f67ccc6-e028-8186-8bc8-d9384725d934" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📦"></span>Dados recebidos da Visior</a></figure><figure id="3f67ccc6-e028-8123-b36c-db37e9cfa9c7" class="link-to-page"><a href="https://app.notion.com/p/Resultados-da-limpeza-e-an-lise-explorat-ria-3f67ccc6e0288123b36cdb37e9cfa9c7?pvs=21" data-notion-page-id="3f67ccc6-e028-8123-b36c-db37e9cfa9c7" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📈"></span>Resultados da limpeza e análise exploratória</a></figure><figure id="3f77ccc6-e028-8151-b3f6-e98108240872" class="link-to-page"><a href="https://app.notion.com/p/Documentos-do-projeto-3f77ccc6e0288151b3f6e98108240872?pvs=21" data-notion-page-id="3f77ccc6-e028-8151-b3f6-e98108240872" data-notion-space-id="8887ccc6-e028-81ce-bd20-000319f64cad"><span class="icon" data-emoji="📁"></span>Documentos do projeto</a></figure></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
