@@ -1,0 +1,153 @@
+{
+  "name": "VisiorEscuro",
+  "dataColors": [
+    "#4C8DF6",
+    "#5B6472",
+    "#E8A33D",
+    "#7FB0FF",
+    "#3B6FCC",
+    "#A3ACB9"
+  ],
+  "background": "#191A1C",
+  "foreground": "#E8EBF0",
+  "tableAccent": "#4C8DF6",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#E8EBF0",
+      "fontSize": 13
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#9AA3B2",
+      "fontSize": 10
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#4C8DF6",
+      "fontSize": 32
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#E8EBF0",
+      "fontSize": 12
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#191A1C"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#2A2F39"
+              }
+            },
+            "radius": 8
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#E8EBF0"
+              }
+            },
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "categoryAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9AA3B2"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#9AA3B2"
+              }
+            },
+            "showAxisTitle": false,
+            "gridlineShow": false
+          }
+        ],
+        "valueAxis": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9AA3B2"
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": "#9AA3B2"
+              }
+            },
+            "showAxisTitle": false,
+            "gridlineColor": {
+              "solid": {
+                "color": "#2A2F39"
+              }
+            }
+          }
+        ],
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#E8EBF0"
+              }
+            }
+          }
+        ],
+        "legend": [
+          {
+            "labelColor": {
+              "solid": {
+                "color": "#9AA3B2"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#1B2D45"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#1B2D45"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

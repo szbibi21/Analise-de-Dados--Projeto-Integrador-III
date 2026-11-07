@@ -1,0 +1,11 @@
+indicador,valor
+Ações analisadas na Fase 1,88150.0
+Votos analisados na Fase 2,108075.0
+"Taxa de correção de classe (placas, Fase 1)",0.1176704653975934
+"Participação de I-O, O-FE e R-27 no tempo de correção",0.5400137203649954
+Tempo mediano para corrigir uma classe (s),7.866
+Tempo mediano para rejeitar um card (s),2.551
+Economia com 50% menos erro nas 3 classes (% do tempo de ação em placas),0.1809585993020499
+"Economia com 50% menos erro nas 3 classes (horas/mês, ritmo ago–set)",3.920013203648619
+Taxa de rejeição geral (Fase 2),0.5706685172334027
+Correções de classe em placas que terminam em I-E,0.3430271878804274

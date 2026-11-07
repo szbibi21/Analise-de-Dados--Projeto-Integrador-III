@@ -1,0 +1,62 @@
+semana,fase,modelo,decisoes
+2026-05-25,Fase 1,Sinalização Horizontal (pintura),8489
+2026-06-01,Fase 1,Sinalização Horizontal (pintura),9384
+2026-06-01,Fase 1,Sinalização Vertical (placas),820
+2026-06-08,Fase 1,Sinalização Horizontal (pintura),1945
+2026-06-08,Fase 1,Sinalização Vertical (placas),990
+2026-06-15,Fase 1,Sinalização Vertical (placas),608
+2026-06-22,Fase 1,Sinalização Vertical (placas),432
+2026-07-06,Fase 1,Sinalização Vertical (placas),19
+2026-07-20,Fase 1,Sinalização Vertical (placas),2356
+2026-07-27,Fase 1,Sinalização Vertical (placas),5685
+2026-08-03,Fase 1,Sinalização Vertical (placas),2752
+2026-08-10,Fase 1,Sinalização Vertical (placas),12972
+2026-08-17,Fase 1,Sinalização Vertical (placas),6084
+2026-08-24,Fase 1,Sinalização Vertical (placas),9998
+2026-08-31,Fase 1,Sinalização Vertical (placas),7833
+2026-09-07,Fase 1,Sinalização Vertical (placas),9388
+2026-09-14,Fase 1,Sinalização Vertical (placas),8395
+2026-03-23,Fase 2,Sinalização Horizontal (pintura),117
+2026-04-13,Fase 2,Sinalização Horizontal (pintura),1490
+2026-06-01,Fase 2,Sinalização Horizontal (pintura),375
+2026-06-01,Fase 2,Sinalização Vertical (placas),630
+2026-06-08,Fase 2,Sinalização Horizontal (pintura),2729
+2026-06-08,Fase 2,Sinalização Vertical (placas),703
+2026-06-15,Fase 2,Sinalização Horizontal (pintura),2335
+2026-06-15,Fase 2,Sinalização Vertical (placas),525
+2026-06-22,Fase 2,Sinalização Horizontal (pintura),1029
+2026-06-22,Fase 2,Sinalização Vertical (placas),330
+2026-07-06,Fase 2,Sinalização Horizontal (pintura),4
+2026-07-06,Fase 2,escorregamento_rfdetr,1713
+2026-07-13,Fase 2,Sinalização Horizontal (pintura),608
+2026-07-13,Fase 2,Sinalização Vertical (placas),2
+2026-07-13,Fase 2,escorregamento_rfdetr,118
+2026-07-20,Fase 2,Sinalização Horizontal (pintura),2104
+2026-07-20,Fase 2,Sinalização Vertical (placas),1089
+2026-07-20,Fase 2,escorregamento_rfdetr,793
+2026-07-27,Fase 2,Sinalização Horizontal (pintura),2223
+2026-07-27,Fase 2,Sinalização Vertical (placas),4763
+2026-07-27,Fase 2,escorregamento_rfdetr,3467
+2026-08-03,Fase 2,Sinalização Horizontal (pintura),2231
+2026-08-03,Fase 2,Sinalização Vertical (placas),2877
+2026-08-03,Fase 2,rfdetr_large_panelas,2023
+2026-08-10,Fase 2,Sinalização Horizontal (pintura),7977
+2026-08-10,Fase 2,Sinalização Vertical (placas),9831
+2026-08-10,Fase 2,modelo-de-panelas-3-yolo11s-t2.pt,4128
+2026-08-17,Fase 2,Sinalização Vertical (placas),4402
+2026-08-17,Fase 2,modelo-de-panelas-3-yolo11s-t2.pt,1229
+2026-08-24,Fase 2,Escorregamento,296
+2026-08-24,Fase 2,Panelas / Buracos,7007
+2026-08-24,Fase 2,Panelas / Buracos (v6 - beta),298
+2026-08-24,Fase 2,Sinalização Horizontal (pintura),2301
+2026-08-24,Fase 2,Sinalização Vertical (placas),6232
+2026-08-31,Fase 2,Escorregamento,1569
+2026-08-31,Fase 2,Panelas / Buracos,4914
+2026-08-31,Fase 2,Sinalização Vertical (placas),103
+2026-09-07,Fase 2,Escorregamento,765
+2026-09-07,Fase 2,Panelas / Buracos,11363
+2026-09-07,Fase 2,Sinalização Horizontal (pintura),1489
+2026-09-07,Fase 2,Sinalização Vertical (placas),1495
+2026-09-14,Fase 2,Panelas / Buracos,903
+2026-09-14,Fase 2,Sinalização Horizontal (pintura),6848
+2026-09-14,Fase 2,Sinalização Vertical (placas),647

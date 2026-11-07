@@ -1,0 +1,820 @@
+{
+  "compatibilityLevel": 1606,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"kpis\", \"classes_top12\", \"classes_taxa\", \"trocas_top10\", \"tempo_acao\", \"cenarios\", \"rejeicao_modelo\", \"semanal\", \"val_f1\", \"val_f2\", \"curva\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "pt-BR",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "pt-BR",
+    "tables": [
+      {
+        "name": "kpis",
+        "columns": [
+          {
+            "name": "indicador",
+            "dataType": "string",
+            "lineageTag": "81d022c4-bd80-4421-a56e-9336057edcb8",
+            "sourceColumn": "indicador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "valor",
+            "dataType": "double",
+            "lineageTag": "7333f503-437c-4be2-bcf6-3ef41fa8bb7b",
+            "sourceColumn": "valor",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "f6a86910-e5b0-49d9-93f4-5cdfe9174b55",
+        "measures": [
+          {
+            "name": "Concentração 3 classes",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"Participação de I-O\"))",
+            "formatString": "0.0%",
+            "lineageTag": "00eb7aa2-a548-4a03-afb1-18c19458cfb1"
+          },
+          {
+            "name": "Economia 50%",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"(% do tempo\"))",
+            "formatString": "0.0%",
+            "lineageTag": "b59e6683-25f6-4e6c-982c-2178c741a8d2"
+          },
+          {
+            "name": "Correções em I-E",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"terminam em I-E\"))",
+            "formatString": "0.0%",
+            "lineageTag": "d92c0a22-2a28-4c33-868a-071238f49408"
+          },
+          {
+            "name": "Taxa de correção placas",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"Taxa de correção de classe\"))",
+            "formatString": "0.0%",
+            "lineageTag": "286ee9b3-f570-423b-ab30-1bdb91b806d4"
+          },
+          {
+            "name": "Ações F1",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"Ações analisadas\"))",
+            "formatString": "#,0",
+            "lineageTag": "3f61b9d0-fe39-493c-a4e3-42ff6a8f7dcf"
+          },
+          {
+            "name": "Votos F2",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"Votos analisados\"))",
+            "formatString": "#,0",
+            "lineageTag": "d82af7ae-66e9-42b1-9954-7c5c110edb34"
+          },
+          {
+            "name": "Economia h/mês",
+            "expression": "FORMAT(CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"horas/mês\")), \"0.0\") & \" h/mês\"",
+            "lineageTag": "cc2bb011-63ea-4b92-aa7c-e1e296744aa4"
+          },
+          {
+            "name": "Tempo corrigir",
+            "expression": "FORMAT(CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"para corrigir\")), \"0.0\") & \" s\"",
+            "lineageTag": "ba292ca1-2dee-4371-85ea-73ff99de0793"
+          },
+          {
+            "name": "Rejeição geral F2",
+            "expression": "CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"rejeição geral\"))",
+            "formatString": "0.0%",
+            "lineageTag": "fb866c06-b08a-45ef-a2cf-98c345141091"
+          },
+          {
+            "name": "Corrigir x rejeitar",
+            "expression": "VAR c = CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"para corrigir\")) VAR r = CALCULATE(MAX(kpis[valor]), CONTAINSSTRING(kpis[indicador], \"para rejeitar\")) RETURN FORMAT(DIVIDE(c, r), \"0.0\") & \"×\"",
+            "lineageTag": "dcd7ca45-81a9-48ae-954d-33f42fd85b65"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "kpis",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\kpis.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"indicador\", type text}, {\"valor\", type number}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "classes_top12",
+        "columns": [
+          {
+            "name": "classe",
+            "dataType": "string",
+            "lineageTag": "127d718b-0995-4ae4-a603-50e2a8419187",
+            "sourceColumn": "classe",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "grupo",
+            "dataType": "string",
+            "lineageTag": "ba5bc605-f8b3-41c2-9929-ccb23a51d852",
+            "sourceColumn": "grupo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "pct_tempo_correcao",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "2eb48a2d-4262-454f-892a-1813af4dee74",
+            "sourceColumn": "pct_tempo_correcao",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "horas_correcao",
+            "dataType": "double",
+            "lineageTag": "0190716b-1238-45f8-872f-9945b25987c8",
+            "sourceColumn": "horas_correcao",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "corrigidos",
+            "dataType": "int64",
+            "lineageTag": "15a83f49-f1ae-49bb-84d0-8bba043c2627",
+            "sourceColumn": "corrigidos",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "f2b1d15f-1473-42af-87ea-88f220deb732",
+        "measures": [
+          {
+            "name": "% do tempo de correção",
+            "expression": "SUM(classes_top12[pct_tempo_correcao])",
+            "formatString": "0.0%",
+            "lineageTag": "3fea7ac7-07ca-4564-bad7-029600875abd"
+          },
+          {
+            "name": "Cor classe",
+            "expression": "IF(LEFT(SELECTEDVALUE(classes_top12[grupo]), 3) = \"Top\", \"#4C8DF6\", \"#5B6472\")",
+            "lineageTag": "c7281e4b-ca23-4923-8741-45abe8c82121"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "classes_top12",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\classes_top12.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"classe\", type text}, {\"grupo\", type text}, {\"pct_tempo_correcao\", type number}, {\"horas_correcao\", type number}, {\"corrigidos\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "classes_taxa",
+        "columns": [
+          {
+            "name": "classe",
+            "dataType": "string",
+            "lineageTag": "f80c5de9-ee33-4416-bd23-86dd4271a5c4",
+            "sourceColumn": "classe",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "grupo",
+            "dataType": "string",
+            "lineageTag": "328fb9b8-00a9-48de-976d-96f90ee5bab8",
+            "sourceColumn": "grupo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "cards",
+            "dataType": "int64",
+            "lineageTag": "c2a00ebd-06df-4ae4-810e-888b5a3ccbed",
+            "sourceColumn": "cards",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "corrigidos",
+            "dataType": "int64",
+            "lineageTag": "2a88a623-0936-4c8c-bab2-8de63215ac95",
+            "sourceColumn": "corrigidos",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "taxa_correcao",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "a25b63b3-d241-4347-9f2e-f08617316bbf",
+            "sourceColumn": "taxa_correcao",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "34162aa2-a078-40f7-9b7a-7b40f4657366",
+        "measures": [
+          {
+            "name": "Taxa de correção",
+            "expression": "SUM(classes_taxa[taxa_correcao])",
+            "formatString": "0.0%",
+            "lineageTag": "8bd15afc-142e-4cff-b9f5-d98039b4e45d"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "classes_taxa",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\classes_taxa.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"classe\", type text}, {\"grupo\", type text}, {\"cards\", Int64.Type}, {\"corrigidos\", Int64.Type}, {\"taxa_correcao\", type number}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "trocas_top10",
+        "columns": [
+          {
+            "name": "troca",
+            "dataType": "string",
+            "lineageTag": "79ff651e-0218-4a81-9d71-bf23b74a8ea8",
+            "sourceColumn": "troca",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "classe_final",
+            "dataType": "string",
+            "lineageTag": "f54237a7-40b8-4275-8e6e-1957fbb0198c",
+            "sourceColumn": "classe_final",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "vezes",
+            "dataType": "int64",
+            "lineageTag": "f322b15d-b2af-4d50-9674-ab0a153a942e",
+            "sourceColumn": "vezes",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "5a56d472-b605-4b14-99e9-c8bd97479250",
+        "measures": [
+          {
+            "name": "Ocorrências",
+            "expression": "SUM(trocas_top10[vezes])",
+            "formatString": "#,0",
+            "lineageTag": "f64a6b65-c385-4aa6-9775-ed6335d0dd43"
+          },
+          {
+            "name": "Cor troca",
+            "expression": "IF(SELECTEDVALUE(trocas_top10[classe_final]) = \"I-E\", \"#4C8DF6\", \"#5B6472\")",
+            "lineageTag": "fe1f37e9-24f3-418e-8943-370c5540326b"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "trocas_top10",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\trocas_top10.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"troca\", type text}, {\"classe_final\", type text}, {\"vezes\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "tempo_acao",
+        "columns": [
+          {
+            "name": "acao",
+            "dataType": "string",
+            "lineageTag": "bb40c12d-6b52-4fed-a15d-fb7a5918def6",
+            "sourceColumn": "acao",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "tempo_mediano_seg",
+            "dataType": "double",
+            "lineageTag": "c981e72c-ac9b-4346-ad79-a3b4aaac956b",
+            "sourceColumn": "tempo_mediano_seg",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "acoes_com_tempo",
+            "dataType": "int64",
+            "lineageTag": "bb3d37b5-fe20-444a-bdf2-03fba13dad56",
+            "sourceColumn": "acoes_com_tempo",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "5e585886-15f8-4577-9adb-d490efee9f93",
+        "measures": [
+          {
+            "name": "Tempo mediano (s)",
+            "expression": "SUM(tempo_acao[tempo_mediano_seg])",
+            "formatString": "0.0",
+            "lineageTag": "e2b35c48-f105-49bb-901b-91af71e090bc"
+          },
+          {
+            "name": "Cor ação",
+            "expression": "IF(SELECTEDVALUE(tempo_acao[acao]) = \"Corrigir classe\", \"#4C8DF6\", \"#5B6472\")",
+            "lineageTag": "34afcff4-dd92-439a-aa09-42cc3d178592"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "tempo_acao",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\tempo_acao.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"acao\", type text}, {\"tempo_mediano_seg\", type number}, {\"acoes_com_tempo\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "cenarios",
+        "columns": [
+          {
+            "name": "reducao_erro",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "fe3acbb8-a540-4411-b4e2-d5479d7d6316",
+            "sourceColumn": "reducao_erro",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "correcoes_evitadas",
+            "dataType": "int64",
+            "lineageTag": "f251fb09-c408-419f-96e6-4a03235e331c",
+            "sourceColumn": "correcoes_evitadas",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "horas_economizadas_periodo",
+            "dataType": "double",
+            "lineageTag": "4f9dd495-6f5b-4684-bc47-ee3ca7a9bd64",
+            "sourceColumn": "horas_economizadas_periodo",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "pct_tempo_acao_placas",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "e7a7896d-5302-4dc7-a04b-8c2f89721647",
+            "sourceColumn": "pct_tempo_acao_placas",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "horas_por_mes_ritmo_recente",
+            "dataType": "double",
+            "lineageTag": "a2884a8b-6753-40a7-a6e3-edbb64aa929f",
+            "sourceColumn": "horas_por_mes_ritmo_recente",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "cenario",
+            "dataType": "string",
+            "lineageTag": "0f36f85a-31cc-4beb-ae52-6e84516720c6",
+            "sourceColumn": "cenario",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "2296f5d1-c1b6-470b-8352-1fcb1b0fa6c9",
+        "measures": [
+          {
+            "name": "Horas economizadas",
+            "expression": "SUM(cenarios[horas_economizadas_periodo])",
+            "formatString": "0.0",
+            "lineageTag": "dd9e5321-7031-4c23-adcd-4654e0fb20fc"
+          },
+          {
+            "name": "Cor cenário",
+            "expression": "IF(SELECTEDVALUE(cenarios[reducao_erro]) = 0.5, \"#4C8DF6\", \"#5B6472\")",
+            "lineageTag": "2c18b319-9cd9-4d00-9641-124020292a5d"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "cenarios",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\cenarios.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"reducao_erro\", type number}, {\"correcoes_evitadas\", Int64.Type}, {\"horas_economizadas_periodo\", type number}, {\"pct_tempo_acao_placas\", type number}, {\"horas_por_mes_ritmo_recente\", type number}, {\"cenario\", type text}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "rejeicao_modelo",
+        "columns": [
+          {
+            "name": "modelo",
+            "dataType": "string",
+            "lineageTag": "7fb38072-622b-40fb-9356-86cefcfe59ec",
+            "sourceColumn": "modelo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "familia",
+            "dataType": "string",
+            "lineageTag": "58dfd5b0-e0c2-49f2-8236-3cbd2b5e8fc2",
+            "sourceColumn": "familia",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "votos",
+            "dataType": "int64",
+            "lineageTag": "6e821bed-ccf8-4421-8fd3-d707d4d5b2c7",
+            "sourceColumn": "votos",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "rejeitados",
+            "dataType": "int64",
+            "lineageTag": "4a858164-1495-403f-b01e-9ab2a4f0bf20",
+            "sourceColumn": "rejeitados",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "8d601e71-ad77-4db4-983d-2acc18a7bf73",
+        "measures": [
+          {
+            "name": "Taxa de rejeição",
+            "expression": "DIVIDE(SUM(rejeicao_modelo[rejeitados]), SUM(rejeicao_modelo[votos]))",
+            "formatString": "0.0%",
+            "lineageTag": "86c24dd1-8c4e-44de-8e29-a87d050911d5"
+          },
+          {
+            "name": "Cor família",
+            "expression": "IF(SELECTEDVALUE(rejeicao_modelo[familia]) = \"Pavimento\", \"#5B6472\", \"#4C8DF6\")",
+            "lineageTag": "2ae05a87-ce7d-446f-926e-d3813f346211"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "rejeicao_modelo",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\rejeicao_modelo.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"modelo\", type text}, {\"familia\", type text}, {\"votos\", Int64.Type}, {\"rejeitados\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "semanal",
+        "columns": [
+          {
+            "name": "semana",
+            "annotations": [
+              {
+                "name": "UnderlyingDateTimeDataType",
+                "value": "Date"
+              }
+            ],
+            "dataType": "dateTime",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "b6fe70de-ac9c-498d-b081-fa1e3ea25ccd",
+            "sourceColumn": "semana",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "fase",
+            "dataType": "string",
+            "lineageTag": "772c36a7-01df-42a9-9ed9-28e8a6a6ee41",
+            "sourceColumn": "fase",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "modelo",
+            "dataType": "string",
+            "lineageTag": "594cd8b1-49b3-404d-9354-bbe96c7ced06",
+            "sourceColumn": "modelo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "decisoes",
+            "dataType": "int64",
+            "lineageTag": "8229a5a5-0048-4984-900c-7adf4fa632cc",
+            "sourceColumn": "decisoes",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "d30078c9-507b-4e3e-a55b-035707400a8e",
+        "measures": [
+          {
+            "name": "Decisões",
+            "expression": "SUM(semanal[decisoes])",
+            "formatString": "#,0",
+            "lineageTag": "a9174aaf-70b9-4f10-b8b7-a2ebdaf25b86"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "semanal",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\semanal.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"semana\", type date}, {\"fase\", type text}, {\"modelo\", type text}, {\"decisoes\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "val_f1",
+        "columns": [
+          {
+            "name": "validador",
+            "dataType": "string",
+            "lineageTag": "860a61b9-f37f-47d1-aa62-e4a03e20150c",
+            "sourceColumn": "validador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "cards_f1",
+            "dataType": "double",
+            "lineageTag": "cd163265-14f8-49ed-bcaa-33c1396249ee",
+            "sourceColumn": "cards_f1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "taxa_intervencao",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "8960ec7c-8d0f-47eb-826d-41349587c38e",
+            "sourceColumn": "taxa_intervencao",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "taxa_correcao",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "c5478f38-8d04-4f12-9c9f-5e8259ec8333",
+            "sourceColumn": "taxa_correcao",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "78267671-9b6e-4690-8b43-a9ff1e3b6082",
+        "measures": [
+          {
+            "name": "Taxa de intervenção",
+            "expression": "AVERAGE(val_f1[taxa_intervencao])",
+            "formatString": "0.0%",
+            "lineageTag": "e4f78c5a-17b3-4a6d-9fcf-bb9c891c015d"
+          },
+          {
+            "name": "Validadores F1",
+            "expression": "COUNTROWS(val_f1)",
+            "formatString": "0",
+            "lineageTag": "33778c2a-f17e-4b68-bd9b-4964debbd2dc"
+          },
+          {
+            "name": "Faixa intervenção",
+            "expression": "FORMAT(MIN(val_f1[taxa_intervencao]), \"0%\") & \"–\" & FORMAT(MAX(val_f1[taxa_intervencao]), \"0%\")",
+            "lineageTag": "07c330b3-e8be-400e-8716-7774c543129b"
+          },
+          {
+            "name": "Mediana intervenção",
+            "expression": "MEDIANX(ALL(val_f1), val_f1[taxa_intervencao])",
+            "formatString": "0.0%",
+            "lineageTag": "77df5465-738d-4ed0-b7d5-ac709681e657"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "val_f1",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\val_f1.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"validador\", type text}, {\"cards_f1\", type number}, {\"taxa_intervencao\", type number}, {\"taxa_correcao\", type number}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "val_f2",
+        "columns": [
+          {
+            "name": "validador",
+            "dataType": "string",
+            "lineageTag": "7ae9f241-1725-4726-9a72-f58f664ba788",
+            "sourceColumn": "validador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "cards_f2",
+            "dataType": "int64",
+            "lineageTag": "8b2ea188-7db0-45b2-a410-386e684cdd15",
+            "sourceColumn": "cards_f2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "taxa_rejeicao_f2",
+            "dataType": "double",
+            "formatString": "0.0%",
+            "lineageTag": "8cc2ac75-84c8-4a1b-a936-54a139d270bb",
+            "sourceColumn": "taxa_rejeicao_f2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "tempo_mediano_f2_seg",
+            "dataType": "double",
+            "lineageTag": "a454d66b-ea6d-4b45-ae41-cbd71074c559",
+            "sourceColumn": "tempo_mediano_f2_seg",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "fora_do_padrao_f2",
+            "dataType": "string",
+            "lineageTag": "9f598f79-ba75-419c-9de5-5cb24cb5d6a9",
+            "sourceColumn": "fora_do_padrao_f2",
+            "summarizeBy": "none"
+          }
+        ],
+        "lineageTag": "c35bbcf8-702d-442f-b8b6-6e1b9d3a7a13",
+        "measures": [
+          {
+            "name": "Rejeição F2",
+            "expression": "AVERAGE(val_f2[taxa_rejeicao_f2])",
+            "formatString": "0.0%",
+            "lineageTag": "0d9eaabb-8c47-4f58-8b0b-a6af6e285b02"
+          },
+          {
+            "name": "Tempo mediano F2 (s)",
+            "expression": "AVERAGE(val_f2[tempo_mediano_f2_seg])",
+            "formatString": "0.0",
+            "lineageTag": "98c7524b-c003-48ad-8d9b-72e93548d853"
+          },
+          {
+            "name": "Validadores F2",
+            "expression": "COUNTROWS(val_f2)",
+            "formatString": "0",
+            "lineageTag": "ebe1037d-fd3d-4aea-a40b-ee682f985fec"
+          },
+          {
+            "name": "Fora do padrão",
+            "expression": "CALCULATE(COUNTROWS(val_f2), val_f2[fora_do_padrao_f2] = \"Sim\") + 0",
+            "formatString": "0",
+            "lineageTag": "431b50c5-ef41-4d14-ad54-51e7f35fb552"
+          },
+          {
+            "name": "Cards F2",
+            "expression": "SUM(val_f2[cards_f2])",
+            "formatString": "#,0",
+            "lineageTag": "99eee91e-3e0a-4d00-84f4-2369cfcabc93"
+          },
+          {
+            "name": "Cor validador",
+            "expression": "IF(SELECTEDVALUE(val_f2[fora_do_padrao_f2]) = \"Sim\", \"#E8A33D\", \"#4C8DF6\")",
+            "lineageTag": "0fa3ad8a-7ebc-468c-b3f9-3e4110506b3f"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "val_f2",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\val_f2.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"validador\", type text}, {\"cards_f2\", Int64.Type}, {\"taxa_rejeicao_f2\", type number}, {\"tempo_mediano_f2_seg\", type number}, {\"fora_do_padrao_f2\", type text}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "curva",
+        "columns": [
+          {
+            "name": "validador",
+            "dataType": "string",
+            "lineageTag": "49047caf-4c81-4589-93e0-3e279239e734",
+            "sourceColumn": "validador",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "semana_exp",
+            "dataType": "int64",
+            "lineageTag": "04ca4528-9f4d-45aa-8093-057d55bfd6c9",
+            "sourceColumn": "semana_exp",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "tempo_mediano_seg",
+            "dataType": "double",
+            "lineageTag": "ed20c1ee-bcfb-4700-af00-e4da32f012d2",
+            "sourceColumn": "tempo_mediano_seg",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "cards",
+            "dataType": "int64",
+            "lineageTag": "376062f0-c8e6-4ea9-a049-fbab0223d25f",
+            "sourceColumn": "cards",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "e3af70ae-558c-4518-8657-811cdb341d16",
+        "measures": [
+          {
+            "name": "Tempo mediano por card (s)",
+            "expression": "AVERAGE(curva[tempo_mediano_seg])",
+            "formatString": "0.0",
+            "lineageTag": "0041e687-43a8-4c87-bd1a-0ab7519c536e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "curva",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Fonte = Csv.Document(File.Contents(\"C:\\Users\\sabri\\Documents\\PI3_Visior_Dashboard\\dados\\curva.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Cabecalho = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),",
+                "    Tipos = Table.TransformColumnTypes(Cabecalho, {{\"validador\", type text}, {\"semana_exp\", Int64.Type}, {\"tempo_mediano_seg\", type number}, {\"cards\", Int64.Type}}, \"en-US\")",
+                "in",
+                "    Tipos"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

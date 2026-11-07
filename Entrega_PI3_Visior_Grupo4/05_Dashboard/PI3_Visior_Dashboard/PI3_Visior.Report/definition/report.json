@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/1.0.0/schema.json",
+  "themeCollection": {
+    "customTheme": {
+      "name": "VisiorEscuro.json",
+      "reportVersionAtImport": "5.55",
+      "type": "RegisteredResources"
+    }
+  },
+  "layoutOptimization": "None",
+  "resourcePackages": [
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "VisiorEscuro.json",
+          "path": "VisiorEscuro.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "bg_capa.png",
+          "path": "bg_capa.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_geral.png",
+          "path": "bg_geral.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_classes.png",
+          "path": "bg_classes.png",
+          "type": "Image"
+        },
+        {
+          "name": "bg_validadores.png",
+          "path": "bg_validadores.png",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "defaultDrillFilterOtherVisuals": true
+  }
+}
